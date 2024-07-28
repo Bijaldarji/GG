@@ -18,13 +18,9 @@ def preprocess_text(text):
 def predict_gender(text):
     male_words, female_words = load_word_lists()
     text_words = preprocess_text(text)
-    male_score = len(text_words & male_words)
-    female_score = len(text_words & female_words)
     
-    # Removed debug information
-    # st.write(f"Words in text: {text_words}")
-    # st.write(f"Male words matched: {text_words & male_words}")
-    # st.write(f"Female words matched: {text_words & female_words}")
+    male_score = sum(1 for word in text_words if word in male_words)
+    female_score = sum(1 for word in text_words if word in female_words)
     
     if male_score > female_score:
         return 'Male'
